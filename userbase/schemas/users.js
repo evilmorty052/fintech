@@ -58,7 +58,7 @@ export default {
       { 
         name: 'pin',
         title: 'Pin',
-        type: 'string',
+        type: 'number',
       },
       { 
         name: 'service',
@@ -82,9 +82,38 @@ export default {
         of: [{ type: 'number' }],
       },
       { 
+        name: 'transactions',
+        title: 'Transactions',
+        type: 'array',
+        of: [
+          {
+            title: 'transaction',
+            type: 'object',
+            fields: [
+              {
+                title: 'Sendername',
+                name: 'sendername',
+                type: 'string'
+              } ,
+              {
+                title: 'Amount',
+                name: 'amount',
+                type: 'number'
+              } ,
+              {
+                title: 'Time',
+                name: 'time',
+                type: 'number'
+              } ,
+            ]
+          }
+        ]
+      },
+      { 
         name: 'plan',
         title: 'Plan',
         type: 'string',
-      }
+      },
+      
     ]
   }

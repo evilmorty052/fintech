@@ -14,7 +14,7 @@ import {
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import AuthContextProvider from './contexts/AuthContext'
 import { ChakraProvider } from '@chakra-ui/react'
-
+import 'antd/dist/antd.css';
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')).render(

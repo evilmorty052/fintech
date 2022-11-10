@@ -2,16 +2,20 @@ import React from 'react'
 import Header from '../components/Header'
 import FooterMenu from '../components/FooterMenu';
 import Accountcard from '../components/Accountcard'
-import { FaDollarSign, FaPiggyBank, FaChevronUp } from 'react-icons/fa'; 
+import { FaDollarSign, FaPiggyBank, FaChevronUp,FaBan, FaPlusCircle } from 'react-icons/fa'; 
 import Transactions from '../components/Transactions';
 import CTA2 from '../components/CTA 2';
 import Modal from '../components/modal';
 import { useState } from 'react'
 import {useQuery} from '@tanstack/react-query'
 import { client } from '../lib/client';
+import Chatra from '@chatra/chatra'
+import Inactive from '../components/inactive';
 
 
 const Dashboard = (email, password) => {
+  
+ 
   email = localStorage.getItem('email')
   const emailID = JSON.parse(email)
 
@@ -47,10 +51,13 @@ const Dashboard = (email, password) => {
      <div>
      <Modal closeModal={()=>{setisclicked(false)}} openModal={openModal} isOpen={isclicked? true : false} />
       </div> 
-            <Header name={user[0].firstname}/>
-            <button onClick={()=>{setisclicked(true)}}>hh</button>
+            <Header name={user[0].firstname} icon={<FaPlusCircle/>} func={'add money'}/>
+            <Inactive/>
+            
         <div  className='flex flex-col w-full space-y-5  items-center py-3 mb-5'>
-            <Accountcard/>
+            <div className='px-1'>
+            <Accountcard earnings={user[0].earnings}/>
+            </div>
             <div className=' flex items-start w-full px-3 uppercase'>
                 <p className='text-2xl font-bold '>
                     Recent transactions

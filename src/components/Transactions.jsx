@@ -1,10 +1,31 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Disclosure } from '@headlessui/react'
 // import { ChevronUpIcon } from '@heroicons/react/20/solid'
 import { FaChevronUp as ChevronUpIcon  } from 'react-icons/fa'
 import Transaction from './Transaction'
+import { client } from '../lib/client'
+import { useQuery } from '@tanstack/react-query'
+
+
 
 const Transactions = () => {
+
+  
+
+  let email = localStorage.getItem('email')
+  const emailID = JSON.parse(email)
+  let query = `*[email == "${emailID}"]`
+  const { data: user } = useQuery(['userlist'], () => client.fetch(query))
+  const transaction = user[0].transactions
+ transaction && console.log(transaction[0].amount)
+  if(!user){
+    return(
+      <>
+      ...loading
+      </>
+    )
+  }
+
   return (
     <div className="w-full px-4 ">
       <div className="w-full max-w-4xl rounded-2xl bg-white p-2">
@@ -20,8 +41,13 @@ const Transactions = () => {
                 />
               </Disclosure.Button>
               <Disclosure.Panel className="-4 pt-4 pb-2 text-sm text-gray-500 flex flex-col">
-              <Transaction sender={'nick bucktwo'} time={'11:30'} amount={'11000'}/>
-              <Transaction sender={'nick bucktwo'} time={'11:30'} amount={'11000'}/>
+                
+                <>
+                {transaction && <Transaction amount={transaction[0].amount} sender={transaction[0].sendername} time={transaction[0].time}/>}
+                </>
+ 
+              
+
               </Disclosure.Panel>
             </>
           )}

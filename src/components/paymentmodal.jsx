@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react'
 import { FaBan } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 
-export default function Modal({closeModal, openModal, isOpen, setIsOpen , title , message}) {
+export default function Paymentmodal({closeModal, openModal, isOpen, setIsOpen , title , message, setClicked}) {
 //   let [isOpen, setIsOpen] = useState(true)
 
 //   function closeModal() {
@@ -73,7 +73,7 @@ const navigate = useNavigate()
                       className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={(e)=>{
                         e.preventDefault()
-                        message? navigate('/payment') : closeModal()
+                        message? setClicked(true) : closeModal()
 
                       }}
                     >
