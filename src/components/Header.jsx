@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FaPlusCircle } from 'react-icons/fa'
 
-const Header = ({name,to,func,icon, username}) => {
+const Header = ({name,to,func,icon, username, task}) => {
   return (
     <div className='w-full bg-plat mb-4 py-2 px-4 uppercase font-poppins'>
           <div className='flex'>
@@ -14,7 +14,7 @@ const Header = ({name,to,func,icon, username}) => {
                 <p className='text-lg text-primary font-poppins font-bold'>{name? `hi ${name}`:''}</p>
               </div>
             <Link to={to}>
-            <p className='text-base text-primary font-poppins flex items-center '>{func} <i className=' ml-2 text-blue-400'>{icon}</i></p>
+            <p className='text-base text-primary font-poppins flex items-center ' onClick={task}>{func} <i className=' ml-2 text-blue-400'>{icon}</i></p>
             </Link>
                 
             </div>

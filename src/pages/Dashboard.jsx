@@ -12,6 +12,7 @@ import { client } from '../lib/client';
 import Chatra from '@chatra/chatra'
 import Inactive from '../components/inactive';
 import Witheld from '../components/Witheld';
+import Method from './method';
 
 
 const Dashboard = (email, password) => {
@@ -22,6 +23,7 @@ const Dashboard = (email, password) => {
 
   let [isOpen, setIsOpen] = useState(false)
   let [isclicked, setisclicked] =useState(false)
+  let [clicked, setclicked] =useState(false)
 
   function closeModal() {
     setIsOpen(false)
@@ -56,6 +58,16 @@ const Dashboard = (email, password) => {
     )
   }
 
+  if(clicked){
+    return(
+      <>
+      <Modal closeModal={()=>{setisclicked(false)}}  isOpen={isclicked? true : false} />
+      <Method setisclicked={setisclicked}/>
+      </>
+    )
+
+  }
+
   return (
     <div className='flex min-h-screen flex-col  relative pb-10 bg-black-gradient-2 '>
          
@@ -63,7 +75,7 @@ const Dashboard = (email, password) => {
      <div>
      <Modal closeModal={()=>{setisclicked(false)}} openModal={openModal} isOpen={isclicked? true : false} />
       </div> 
-            <Header name={user[0].firstname} icon={<FaPlusCircle/>} func={'add money'} username={`${name}${lname} ` } to={'/pay'}/>
+            <Header name={user[0].firstname} icon={<FaPlusCircle/>} func={'add money'} username={`${name}${lname} ` } task={()=>{setclicked(true)}} />
             <Inactive/>
             
         <div  className='flex flex-col w-full space-y-5  items-center py-3 mb-5'>

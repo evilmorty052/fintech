@@ -1,0 +1,98 @@
+https://animista.net/
+
+paper.xyz
+
+thirdweb.com
+
+https://angrytools.com/gradient/
+
+https://www.schemecolor.com/mixed-fruit-juice-color-scheme.php
+
+https://apps.elfsight.com/
+
+divjoy.com
+
+flexclip.com
+
+https://unblast.com/mockups/
+
+https://mockups-design.com/
+
+https://www.freepik.com/
+
+https://www.ls.graphics/
+
+https://free-psd-templates.com/
+
+https://app.resemble.ai/
+
+https://app.clipchamp.com/
+
+https://www.dafont.com/
+
+https://clipboardjs.com/
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAF4G7EWZ7iwj9PNfxYtIzo3P0zQ0G4CeQ",
+  authDomain: "capital-2db91.firebaseapp.com",
+  projectId: "capital-2db91",
+  storageBucket: "capital-2db91.appspot.com",
+  messagingSenderId: "772157605187",
+  appId: "1:772157605187:web:a50dc95986083acb009bf6"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+
+
+
+
+
+
+
+Get-ExecutionPolicy -Scope CurrentUser
+
+Get-ExecutionPolicy -List
+
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+Set-ExecutionPolicy -ExecutionPolicy Undefined -Scope LocalMachine
+
+
+panama wedding
+
+smashing pumpkins 1979
+
+american money borns
+
+freaking out the wrecks
+
+little lion man mumford and sons
+
+the middle john eat world
+
+phoenix 1901
+
+chaise lounge wetleg
+
+Summer Vibes | Indie Playlist
+
+songs to listen to because you're the main character - a playlist\
+
+
+
+
+
+
+
+
+
+
+

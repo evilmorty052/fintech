@@ -42,14 +42,14 @@ const SetPin = () => {
     }, 1000)
    
   }, [copied])
-  useEffect(() => {
-    setTimeout(()=>{
-      if(!pinref){
-      history('/')
-      }
-    }, 10000)
+  // useEffect(() => {
+  //   setTimeout(()=>{
+  //     if(!pinref){
+  //     history('/')
+  //     }
+  //   }, 10000)
    
-  }, [])
+  // }, [])
 
   const handlesubmit = (e)=>{
     e.preventDefault()
