@@ -12,6 +12,7 @@ import {
 } from 'firebase/auth'
 
 const AuthContext = createContext({
+  token: false,
   currentUser: null,
   signInWithGoogle: () => Promise,
   login: () => Promise,
@@ -24,7 +25,11 @@ const AuthContext = createContext({
 export const useAuth = () => useContext(AuthContext)
 
 export default function AuthContextProvider({ children }) {
+  const [token, settoken] = useState(false)
   const [currentUser, setCurrentUser] = useState(null)
+  
+  
+  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
@@ -34,6 +39,9 @@ export default function AuthContextProvider({ children }) {
       unsubscribe()
     }
   }, [])
+
+
+
 
   useEffect(() => {
     console.log('The user is', currentUser)
@@ -67,6 +75,7 @@ export default function AuthContextProvider({ children }) {
   }
 
   const value = {
+    token,
     currentUser,
     signInWithGoogle,
     login,

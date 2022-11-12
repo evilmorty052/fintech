@@ -53,15 +53,14 @@ const Signup3 = () => {
     }
   }
   return (
-    <div className=' container flex  min-h-screen mx-auto'>
+    <div className=' container flex  min-h-screen mx-auto font-poppins bounce-in-bottom'>
 
 <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
   <div class="mx-auto max-w-lg text-center">
-    <h1 class="text-2xl font-bold sm:text-3xl">Get started today!</h1>
+    <h1 class="text-2xl font-bold sm:text-3xl uppercase">Pick a Password</h1>
 
     <p class="mt-4 text-gray-500">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Et libero nulla
-      eaque error neque ipsa culpa autem, at itaque nostrum!
+  pick  a password to associate with your account
     </p>
   </div>
 

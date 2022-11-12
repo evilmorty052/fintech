@@ -5,6 +5,9 @@ import { useAuth } from '../contexts/AuthContext'
 import { Alert } from 'antd'
 import { FaRegEye, FaAt, FaPhone } from 'react-icons/fa'
 import Input from '../components/input'
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+
 
 const Signup2 = () => {
   // const toast = Alert()
@@ -23,11 +26,11 @@ const Signup2 = () => {
       seterr(true)
 
     }
-    if(!phone){
+    // if(!phone){
       
-      seterr(true)
+    //   seterr(true)
 
-    }
+    // }
     else{
       localStorage.setItem('email', JSON.stringify(email))
       localStorage.setItem('phone', JSON.stringify(phone))
@@ -35,24 +38,35 @@ const Signup2 = () => {
     }
   }
   return (
-    <div className=' container flex  min-h-screen mx-auto'>
+    <div className=' container flex  min-h-screen mx-auto font-poppins bounce-in-bottom'>
 
 <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
   <div class="mx-auto max-w-lg text-center">
-    <h1 class="text-2xl font-bold sm:text-3xl">Keep going!</h1>
+    <h1 class="text-2xl font-bold sm:text-3xl uppercase">Keep going!</h1>
 
     <p class="mt-4 text-gray-500">
       just some more basic info to set up your account, we will never share your info with a 3rd party provider
     </p>
   </div>
 
-  <form action="" class="mx-auto mt-8 mb-0 max-w-md space-y-4" 
+  <form action="" class="mx-auto mt-8 mb-0 max-w-md space-y-4 " 
           onSubmit={handlesubmit}>
-    <Input placeholder={'Email'} icon={<FaAt/>} type={'email'} value={email} onChange={(e)=>setEmail(e.target.value)} required={'required'} />
+    <Input placeholder={'Email'} icon={<FaAt/>} type={'email'} value={email} onChange={(e)=>setEmail(e.target.value)} required={'required'}  />
     {err && <Alert message={'Firstname is required'} type={'error'}/>}
     {/* <label>Us phone number only:</label> */}
-    <Input placeholder={'Phone'} icon={<FaPhone/>} type={'tel'} required={'required'} pattern={'[0-9]{10}'} value={phone} onChange={(e)=>setphone(e.target.value)}/>
-    {err && <Alert message={'Lastname is required'} type={'error'}/>}
+    {/* <Input placeholder={'Phone'} icon={<FaPhone/>} type={'tel'} required={'required'}  value={phone} onChange={(e)=>setphone(e.target.value)}/>
+    {err && <Alert message={'Lastname is required'} type={'error'}/>} */}
+    <div className=' w-full '>
+    <PhoneInput
+  country={'us'}
+  value={phone}
+  // onChange={(e) =>setphone(e.target.value)}
+  containerClass={''}
+  inputClass={'p-6 pr-6 '}
+/>
+
+    </div>
+   
 
   
 

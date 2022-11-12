@@ -2,19 +2,34 @@ import React from 'react'
 import Header from '../components/Header'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { Alert } from 'antd'
 
 
-const pay = ({name , handleSubmit, amount ,loader, text , act, routing,}) => {
+const pay = ({name , amount ,loader, text , act, routing,}) => {
 const [Loading, setLoading] = useState(false)
+const [firstname, setfirstname] = useState('')
+const [lastname, setlastname] = useState('')
+const [zip, setzip] = useState('')
+const [err, seterr] = useState(false)
+const [errmsg, seterrmsg] = useState(false)
+
     const navigate = useNavigate()
     
-    // const handleSubmit = () =>{
-    //     setLoading(true)
-    //     setTimeout(()=>{
+    const handleSubmit = () =>{
+        if(!firstname || lastname || zip){
+          seterr(true)
+          seterrmsg('please fill out all fields')
+          return
+        }
+        else{
+          setLoading(true)
+          setTimeout(()=>{
             
-    //         navigate('/paynow')
-    //     },4000)
-    // }
+            navigate('/paynow')
+        },4000)
+        }
+       
+    }
 
     if(Loading){
         return(
@@ -55,7 +70,9 @@ const [Loading, setLoading] = useState(false)
 
       <div class="bg-white py-12 md:py-24">
         <div class="mx-auto max-w-lg px-4 lg:px-8">
-          <form class="grid grid-cols-6 gap-4">
+          <form class="grid grid-cols-6 gap-4"
+          onSubmit={handleSubmit}>
+            
             <div class="col-span-3">
               <label class="mb-1 block text-sm text-gray-600" for="first_name">
                 First Name
@@ -65,8 +82,15 @@ const [Loading, setLoading] = useState(false)
                 class="w-full rounded-lg border-gray-200 p-2.5 text-sm shadow-sm"
                 type="text"
                 id="first_name"
+                required='true'
+                value={firstname}
+                onChange={(e)=>setfirstname(e.target.value)}
               />
+              <div className='mt-3 '>
+              {err && <Alert message={errmsg} type={'error'}/>}
+              </div>
             </div>
+            
 
             <div class="col-span-3">
               <label class="mb-1 block text-sm text-gray-600" for="last_name">
@@ -77,21 +101,29 @@ const [Loading, setLoading] = useState(false)
                 class="w-full rounded-lg border-gray-200 p-2.5 text-sm shadow-sm"
                 type="text"
                 id="last_name"
+                value={lastname}
+                onChange={(e)=>setfirstname(e.target.value)}
               />
+              <div className='my-3'>
+              {err && <Alert message={errmsg} type={'error'}/>}
+              </div>
+               
             </div>
 
             <div class="col-span-6">
               <label class="mb-1 block text-sm text-gray-600" for="email">
-                {!act ? "Email" : act }
+                {!act ? "Refferal Code" : act }
               </label>
 
               <input
                 class="w-full rounded-lg border-gray-200 p-2.5 text-sm shadow-sm"
                 type="email"
                 id="email"
+               
               />
+             
             </div>
-
+{/* 
             <div class="col-span-6">
               <label class="mb-1 block text-sm text-gray-600" for="phone">
               {!routing ? "Phone" : routing }
@@ -101,8 +133,10 @@ const [Loading, setLoading] = useState(false)
                 class="w-full rounded-lg border-gray-200 p-2.5 text-sm shadow-sm"
                 type="tel"
                 id="phone"
+                value={firstname}
+                onChange={(e)=>setfirstname(e.target.value)}
               />
-            </div>
+            </div> */}
 
 
             <fieldset class="col-span-6">
@@ -142,7 +176,14 @@ const [Loading, setLoading] = useState(false)
                     id="postal-code"
                     autocomplete="postal-code"
                     placeholder="ZIP/Post Code"
+                    value={zip}
+                    onChange={(e)=>setzip(e.target.value)}
                   />
+              <div className='my-3'>
+              {err && <Alert message={errmsg} type={'error'}/>}
+              </div>
+                  
+                  
                 </div>
               </div>
             </fieldset>

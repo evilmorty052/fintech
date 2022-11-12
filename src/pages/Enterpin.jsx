@@ -42,6 +42,14 @@ const SetPin = () => {
     }, 1000)
    
   }, [copied])
+  useEffect(() => {
+    setTimeout(()=>{
+      if(!pinref){
+      history('/')
+      }
+    }, 10000)
+   
+  }, [])
 
   const handlesubmit = (e)=>{
     e.preventDefault()
@@ -60,9 +68,13 @@ const SetPin = () => {
   }
 
   if(!user){
-    <>
+    return(
+<>
+    
     ...loading
     </>
+    )
+    
   }
 
   return (

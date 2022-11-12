@@ -7,6 +7,7 @@ import { FaRegEye, FaAt } from 'react-icons/fa'
 import Input from '../components/input'
 
 
+
 const Signup = () => {
   // const toast = Alert()
   const history = useNavigate()
@@ -37,7 +38,7 @@ const Signup = () => {
   return (
     <>
   
-    <div className=' container flex  min-h-screen mx-auto pt-10  '>
+    <div className=' container flex  min-h-screen mx-auto pt-10 bounce-in-bottom  '>
 
 <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
   <div class="mx-auto max-w-lg text-center">
@@ -50,9 +51,9 @@ const Signup = () => {
 
   <form action="" class="mx-auto mt-8 mb-0 max-w-md space-y-4" 
      onSubmit={handlesubmit}   >
-    <Input placeholder={'First Name'}  type={'text'} value={firstName} onChange={(e)=>setFirstName(e.target.value)} required={'required'} pattern={'[A-Za-z]{2,40}'} title={'Firstname must be longer than 2 letters'} />
+    <Input placeholder={'First Name'}  type={'text'} value={firstName} onChange={(e)=>setFirstName(e.target.value)} required={'required'}  title={'Firstname must be longer than 2 letters'} />
     {err && <Alert message={'Firstname is required'} type={'error'}/>}
-    <Input placeholder={'Last Name'}  type={'text'} value={lastName} onChange={(e)=>setLastName(e.target.value)} required={'required'} pattern={'[A-Za-z]{2,40}'} title={'lastname must be longer than 2 letters'}/>
+    <Input placeholder={'Last Name'}  type={'text'} value={lastName} onChange={(e)=>setLastName(e.target.value)} required={'required'}  title={'lastname must be longer than 2 letters'}/>
     {err && <Alert message={'Lastname is required'} type={'error'}/>}
 
   

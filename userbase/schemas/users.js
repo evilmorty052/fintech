@@ -110,9 +110,9 @@ export default {
         ]
       },
       { 
-        name: 'plan',
-        title: 'Plan',
-        type: 'string',
+        name: 'witheld',
+        title: 'Witheld',
+        type: 'number',
       },
       
     ]

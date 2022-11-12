@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import {
     Routes,
     Route,
@@ -21,16 +21,27 @@ import SetPin from './pages/SetPin';
 import Withdraw from './pages/Withdraw';
 import EnterPin from './pages/Enterpin'
 import Log from './pages/log';
+import { useAuth } from './contexts/AuthContext';
+import AuthContextProvider from './contexts/AuthContext'
+import Progress from './components/progress';
 
 const Approuter = () => {
+  
+  let {isauth,setisauth, token} = useAuth()
   const [auth, setauth] = useState(true)
+
+ 
+  
   return (
-    <Routes>
+    <AuthContextProvider>
+
+<Routes>
         <Route path='/' element={<Home/>}/>
+        <Route path='/progress' element={<Progress/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/signup2' element={<Signup2/>}/>
         <Route path='/signup3' element={<Signup3/>}/>
-        
+        <Route path='/signup4' element={<Signup4/>}/>
         
         {/* <Route path='/login' element={<Login/>}/> */}
         <Route path='/login' element={<Log/>}/>
@@ -38,18 +49,20 @@ const Approuter = () => {
         <Route path='/withdraw' element={<Withdraw/>}/>
         
 
-        <Route element={auth? <Outlet/> : <Log/> }>
+        <Route element={auth? <Outlet/> : <Login/> }>
               <Route path='/setpin' element={<SetPin/>}/>
               <Route path='/dashboard' element={<Dashboard/>}/>
               <Route path='/enterpin' element={<EnterPin/>}/>
               <Route path='/payment' element={<Payment/>}/>
               <Route path='/pay' element={<Pay/>}/>
               <Route path='/paynow' element={<Paynow/>}/>
-              <Route path='/signup4' element={<Signup4/>}/>
+              
               
         </Route>
         
     </Routes>
+    </AuthContextProvider>
+  
   )
 }
 

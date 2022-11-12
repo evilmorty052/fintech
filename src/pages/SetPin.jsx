@@ -26,6 +26,15 @@ const SetPin = () => {
   const [err, seterr] = useState(false)
   const [errmsg, seterrmsg] = useState('')
 
+const touched = ()=>{
+  if(pin.length > 3){
+    seterr(true)
+    seterrmsg('pin must not be more than 4 digits')
+  }
+
+  else{seterr(false)}
+}
+
   const person = {
     firstname: JSON.parse(firstname),
     lastname: JSON.parse(lastname),
@@ -47,6 +56,7 @@ const SetPin = () => {
     region :`${person.region}`,
     phone :`${person.phone}`,
     demo :true,
+    witheld: 0,
     pin : person.pin,
     investment: 0,
     earnings: [0],
@@ -112,8 +122,17 @@ const SetPin = () => {
         </div>
     </div>
             <div className=' my-4 py-4  flex flex-col items-center'>
-                   <input type="number" className='rounded-full text-center lett tracking-widest' minLength={4} maxLength={4} value={pin} onChange={(e)=>{setPin(e.target.value)}} pattern='[0-9]{4}' required={'required'} title='Pin must be at least 4 numbers from 0-9' />
-                   {err && <Alert message={errmsg} type={'error'}/>}   
+                   <input type="number" className='rounded-full text-center lett tracking-widest' minLength='4' maxLength='4' value={pin} 
+                   onChange={(e)=>{
+                    touched()
+                    setPin(e.target.value)}}
+                     required={'required'}
+                      title='Pin must be at least 4 numbers from 0-9'
+                      inputMode='numeric'  />
+                      <div className='my-4'>
+                      {err && <Alert message={errmsg} type={'error'}/>}   
+                      </div>
+                   
             </div>
 
     {/* <Input placeholder={'Pin'}  type={'password'} value={email} onChange={(e)=>setEmail(e.target.value)} /> */}

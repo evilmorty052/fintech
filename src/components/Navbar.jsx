@@ -2,6 +2,7 @@ import { useState } from "react";
 import { close, logo, menu } from "../assets";
 import { navLinks } from "../constants";
 import { Link } from "react-router-dom";
+import { UserOutlined } from "@ant-design/icons";
 
 const Navbar = () => {
   const [active, setActive] = useState("Home");
@@ -27,6 +28,11 @@ const Navbar = () => {
       </ul>
 
       <div className="sm:hidden flex flex-1 justify-end items-center">
+      <Link to={'/login'}>
+      <i className="text-white mr-3 text-lg"><UserOutlined/></i>
+  
+        </Link>
+        
         <Link to={'/signup'}>
         <p className="text-base text-black mr-4 uppercase md:hidden bg-white rounded-xl py-2 px-4 font-poppins">sign up</p>
         </Link>

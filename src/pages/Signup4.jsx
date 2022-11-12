@@ -6,31 +6,37 @@ import { Alert } from 'antd'
 import { FaRegEye, FaAt, FaPhone } from 'react-icons/fa'
 import Input from '../components/input'
 
+
 const Signup4 = () => {
   // const toast = Alert()
   const history = useNavigate()
-  const { signInWithGoogle, register } = useAuth()
+  const { signInWithGoogle, register, isauth, setisauth , token} = useAuth()
   const [errmsg, seterrmsg] = useState('')
   const [err, seterr] = useState('')
   const [code, setcode] = useState()
   const [refcode, setrefcode] = useState(205060)
+  // const [refcode, setrefcode] = useState('wk1222')
   const [match, setmatch] = useState(false)
   
   
+  // const handlesubmit =(e)=>{
+  //   e.preventDefault()
+  //   // const newcode = parseInt(code)
+     
+  //    if(code != refcode){
+  //          seterr(true)
+  //          seterrmsg('check your code and try again')
+
+  //    }
+
+  //    else if(code == refcode){
+  //         console.log('equal')
+  //         history('/dashboard')
+  //    }
+  // }
   const handlesubmit =(e)=>{
     e.preventDefault()
-    const newcode = parseInt(code)
-     
-     if(newcode !== refcode){
-           seterr(true)
-           seterrmsg('check your code and try again')
-
-     }
-
-     else if(newcode === refcode){
-          console.log('equal')
-          history('/dashboard')
-     }
+     setisauth(true)
   }
 
 
@@ -41,7 +47,7 @@ const Signup4 = () => {
 
 
   return (
-    <div className=' flex flex-col  min-h-screen pt-10 font-poppins '>
+    <div className=' flex flex-col  min-h-screen pt-10 font-poppins bounce-in-bottom '>
          <div className='justify-center flex'>
                  <h3 className={!err? ' uppercase text-2xl font-bold': ' uppercase text-2xl font-bold text-red-600'}>
                   {code && code}
@@ -65,13 +71,14 @@ const Signup4 = () => {
     <input
      className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm text-center"
      placeholder={'Refferal Code'}
-       type={'number'} 
+       type={'pin'} 
        value={code}
        onChange={(e)=>{
       seterr(false)
       setcode(e.target.value)}}
      minLength={"6"}
-     maxlength={"6"} />
+     maxlength={"6"}
+       />
 
 
     {err && <Alert message={errmsg} type={'error'}/>}
@@ -88,7 +95,7 @@ const Signup4 = () => {
         Enter
       </button>
 <button
-        onClick={()=>{history('/dashboard')}}
+        onClick={()=>{history('/login')}}
         class="ml-3 inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
       >
         Skip

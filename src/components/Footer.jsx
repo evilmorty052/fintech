@@ -15,7 +15,7 @@ const Footer = () => (
         <h3 className=" font-black text-xl text-white uppercase">medik <span className="text-xl text-blue-400 uppercase">bank</span></h3>
 
         <p className={`${styles.paragraph} mt-4 max-w-[312px]`}>
-          A new way to make the payments easy, reliable and secure.
+          A new way to make payments easy, reliable and secure.
         </p>
       </div>
 
