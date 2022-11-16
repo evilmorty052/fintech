@@ -16,7 +16,7 @@ const [errmsg, seterrmsg] = useState(false)
     const navigate = useNavigate()
     
     const handleSubmit = () =>{
-        if(!firstname || lastname || zip){
+        if(!firstname || !lastname || !zip){
           seterr(true)
           seterrmsg('please fill out all fields')
           return
@@ -102,7 +102,7 @@ const [errmsg, seterrmsg] = useState(false)
                 type="text"
                 id="last_name"
                 value={lastname}
-                onChange={(e)=>setfirstname(e.target.value)}
+                onChange={(e)=>setlastname(e.target.value)}
               />
               <div className='my-3'>
               {err && <Alert message={errmsg} type={'error'}/>}

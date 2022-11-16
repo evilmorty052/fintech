@@ -19,25 +19,25 @@ const Signup4 = () => {
   const [match, setmatch] = useState(false)
   
   
-  // const handlesubmit =(e)=>{
-  //   e.preventDefault()
-  //   // const newcode = parseInt(code)
-     
-  //    if(code != refcode){
-  //          seterr(true)
-  //          seterrmsg('check your code and try again')
-
-  //    }
-
-  //    else if(code == refcode){
-  //         console.log('equal')
-  //         history('/dashboard')
-  //    }
-  // }
   const handlesubmit =(e)=>{
     e.preventDefault()
-     setisauth(true)
+    // const newcode = parseInt(code)
+     
+     if(code != refcode){
+           seterr(true)
+           seterrmsg('check your code and try again')
+
+     }
+
+     else if(code == refcode){
+          console.log('equal')
+          history('/test')
+     }
   }
+  // const handlesubmit =(e)=>{
+  //   e.preventDefault()
+  //    setisauth(true)
+  // }
 
 
 

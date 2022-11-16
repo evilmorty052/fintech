@@ -7,9 +7,9 @@ const inactive = () => {
     let [isOpen, setIsOpen] = useState(false)
     let [isclicked, setisclicked] =useState(false)
   return (
-    <div>
+    <div className='container mx-auto '>
         <Modal closeModal={()=>{setisclicked(false)}}  isOpen={isclicked? true : false} title={'Account is Inactive'} message={'click button below to start activation process'} />
-        <div className=' w-full bg-red-200 flex justify-center items-center gap-2  px-3 py-3 ' onClick={()=>{setisclicked(true)}}>
+        <div className='  bg-red-200 flex justify-center items-center gap-2  px-3 py-3 ' onClick={()=>{setisclicked(true)}}>
             <p className=' uppercase font-bold font-poppins text-2xl'>
               Account inactve
             </p>

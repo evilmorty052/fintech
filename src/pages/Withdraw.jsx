@@ -5,7 +5,7 @@ import Enterpin from './Enterpin'
 import Modal from '../components/paymentmodal'
 import Pay from './pay2'
 import { useNavigate } from 'react-router-dom'
-import { Input,} from 'antd';
+import { Input, InputNumber} from 'antd';
 import { Button } from 'antd';
 import { client } from '../lib/client'
 import { useQuery } from '@tanstack/react-query'
@@ -24,6 +24,8 @@ const [amount, setAmount] = useState('')
 let [isOpen, setIsOpen] = useState(false)
 let [isclicked, setisclicked] =useState(false)
 const [loading, setLoading] = useState(false)
+const [case0, setcase0] = useState(false)
+
 const navigate = useNavigate()
 
 let email = localStorage.getItem('email')
@@ -34,11 +36,11 @@ const emailID = JSON.parse(email)
 
 const openNotification = () => {
   notification.open({
-    message: 'INSUFFICIENT BALANCE',
+    message:  case0 ? 'INVALID AMOUNT' :'INSUFFICIENT BALANCE' ,
     duration: 20,
   //   placement: 'bottom' ,
     description:
-      'please choose a lower amount to withdraw',
+    case0? 'Choose An Amount Greater than zero'  :'please choose a lower amount to withdraw',
     onClick: () => {
       console.log('Notification Clicked!');
       
@@ -56,10 +58,24 @@ let query = `*[email == "${emailID}"]`
   const lname = user && user[0].lastname.slice(0,1)
  
 
+ const handlechange =(e) => {
+  
+  if(e.target.value){
+    openNotification()
+  }
+
+ }
+
    const handleSubmit = () =>{
        
     if(parseInt(amount) > user[0].investment ){
       seterr(true)
+      openNotification()
+
+      return
+    }
+    if(parseInt(amount) <= 0 ){
+      setcase0(true)
       openNotification()
 
       return
@@ -95,13 +111,16 @@ if(clicked){
     <>
     <div className='w-full'>
     <Header func={'BACK'} to={'/dashboard'} icon={<FaChevronCircleLeft/>} username={`${name}${lname}`}/>
-    <Pay amount={amount} loader={true}/>
+    <Pay amount={parseInt(amount).toLocaleString({ style: 'currency', currency: 'USD' })} />
     </div>
       {/* <Enterpin setClicked={clicker}/> */}
       
     </>
   )
 }
+
+
+
 
 if(!user){
   return(
@@ -115,12 +134,14 @@ if(!user){
 
 
   return (
-    <div className='flex flex-col bg-black-gradient-2 font-poppins  h-screen'>
+    <>
+    
+    <div className='flex flex-col bg-black-gradient-2 font-poppins  w-full relative min-h-screen '>
      <Header func={'BACK'} to={'/dashboard'} icon={<FaChevronCircleLeft/>} username={`${name}${lname}`}/>
      
       {/* <Modal closeModal={()=>{setisclicked(false)}}  isOpen={isclicked? true : false}
        title={'Confirm Amount'} message={amount} setClicked={clicker}/> */}
-        <div className=' container mx-auto  p-10 flex flex-col items-center space-y-10 justify-center   '>
+        <div className=' container mx-auto  p-10 flex flex-col items-center space-y-10 justify-center mb-10   '>
         <Accountcard earnings={user[0].investment < parseInt(amount) ? 'INSUFFICIENT' : user[0].investment - amount } low={user[0].investment < parseInt(amount) ? true : false} text={'ACCOUNT BALANCE'}/>
         {/* {user&& <h3 className='text-black uppercase text-xl font-bold '>{`Balance ${':'} ${user[0].earnings < parseInt( amount) ? 'insufficient funds' :`${'$ '} ${user[0].earnings[0]-amount } ` }`}</h3>} */}
             <div className='flex flex-col items-center  space-y-4 '>
@@ -134,11 +155,14 @@ if(!user){
                      onPressEnter={()=>{handleSubmit()}}
                      className={'text-center'}
                     //  prefix={<FaDollarSign/>}
-                    
                      value={amount}
+                     
                      onChange={
                       (e)=>{
+                       
+
                         setAmount(e.target.value)
+                        
                         }}/>    
                 </div>
                 <Button  className='text-black'
@@ -153,18 +177,22 @@ if(!user){
                 </Button>
 
                 
-               
-            </div> 
-        </div>
-        <div className='container mx-auto'>
-                  <CTA2 shortText={'No Withdrawal Charges '} longText={'enjoy charge free transfers for your first year'}/>
-         </div>
-
-         <div className=' mt-10'>
-          <FooterMenu/>
-         </div>
                 
+            </div> 
+            <div className='container mx-auto'>
+            <CTA2 shortText={'No Withdrawal Charges '} longText={'enjoy charge free transfers for your first year'}/>
+            </div>
+            
+                
+         
+        </div>
+
+          
+         
+        <FooterMenu/>        
     </div>
+    
+    </>
   )
 }
 

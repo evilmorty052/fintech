@@ -17,21 +17,17 @@ React.useEffect(() => {
 	mojoauth.signIn().then(payload => {
 	    setPayload(payload)
 	    document.getElementById("mojoauth-passwordless-form").remove();
+		//add email to localstorage to store email for use with query
         payload && localStorage.setItem('email', JSON.stringify(payload.user.identifier))
         payload && console.log(payload.user.identifier)
+
+		//add token to localstorage to get login status of user later
+		payload && localStorage.setItem('token',JSON.stringify(payload.user))
         payload && history('/enterpin')
 	})
 }, [ ])
 
-// if(loading){
-//     return(
-//         <>
-//          <div className="container min-h-screen flex justify-center items-center mx-auto">
-//               <Spin spinning={'true'} size={'large'}/>
-//          </div>
-//         </>
-//     )
-// }
+
 
 return (
 	<div>

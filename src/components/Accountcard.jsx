@@ -4,6 +4,7 @@ import IconBox from './iconBox';
 import { useState } from 'react';
 import Modal from './modal';
 import { useNavigate } from 'react-router-dom';
+import { BankOutlined, DollarOutlined, ExperimentOutlined, PlusCircleOutlined } from '@ant-design/icons';
 
 
 
@@ -14,7 +15,7 @@ const Accountcard = ({earnings, show, low, text}) => {
   return (
     <div className='  '>
       <Modal closeModal={()=>{setisclicked(false)}}  isOpen={isclicked? true : false} />
-              <div className={!low ? 'sm:w-[500px] xxs:w-[350px]    bg-blue-gradient flex flex-col py-4  px-2 rounded-xl font-poppins':'sm:w-[500px] xxs:w-[350px]   bg-red-300 flex flex-col py-4  px-2 rounded-xl font-poppins'}>
+              <div className={!low ? ' shadow-lg sm:w-[500px]     bg-blue-gradient flex flex-col py-4  px-2 rounded-xl font-poppins':'sm:w-[500px] xxs:w-[350px]   bg-red-300 flex flex-col py-4  px-2 rounded-xl font-poppins'}>
                     <div className=' justify-center w-full font-poppins space-y-3'>
                             <div>
                                 <p className='text-white font-poppins text-base  whitespace-nowrap text-center u font-bold uppercase'> {text}</p>
@@ -23,15 +24,18 @@ const Accountcard = ({earnings, show, low, text}) => {
                                   :
                                   <p className='text-white font-poppins text-xl text-center font-bold'>INSUFFICIENT BALANCE</p> }
                             </div>
-                          {show && <div className='flex space-x-10   justify-center text-center uppercase '>
+                          {show && <div className='flex gap-5   justify-center text-center uppercase '>
                             <div onClick={()=>{history('/withdraw')}}>
-                            <IconBox icon={<FaDollarSign/>} text={'Withdraw'}   />
+                            <IconBox icon={<DollarOutlined/>} text={'Withdraw'}   />
                             </div>
                             <div onClick={()=>{setisclicked(true)}}>
-                            <IconBox icon={<FaPiggyBank/>} text={'Save'}  />
+                            <IconBox icon={<BankOutlined/>} text={'Save'}  />
                             </div>
                             <div onClick={()=>{setisclicked(true)}}>
-                            <IconBox icon={<FaArrowCircleUp/>} text={'Borrow'}  />
+                            <IconBox icon={<PlusCircleOutlined/>} text={'Borrow'}  />
+                            </div>
+                            <div onClick={()=>{setisclicked(true)}}>
+                            <IconBox icon={<ExperimentOutlined/>} text={'Recipe'}  />
                             </div>
                               
                               

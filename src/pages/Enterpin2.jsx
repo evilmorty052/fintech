@@ -7,62 +7,32 @@ import { FaRegEye, FaAt, FaPhone, FaArrowRight, FaArrowDown, FaClipboard } from 
 import Input from '../components/input'
 import Clipboard from 'clipboard'
 import { client } from '../lib/client'
+import { useQuery } from '@tanstack/react-query'
 
-const SetPin = () => {
+const Enterpin = ({setenterpin}) => {
   
     new Clipboard(".copy");
   const [copied, setcopied] = useState(false)
   const history = useNavigate()
   const { signInWithGoogle, register } = useAuth()
-  const [pin, setPin] = useState('')
+  const [pin, setPin] = useState()
   const [copy, setCopy] = useState(pin)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const emailid = localStorage.getItem('email')
-  let firstname = localStorage.getItem('firstname')
-  let lastname = localStorage.getItem('lastname')
-  let phone = localStorage.getItem('phone')
-  let password = localStorage.getItem('password')
   const [err, seterr] = useState(false)
   const [errmsg, seterrmsg] = useState('')
 
-const touched = ()=>{
-  if(pin.length > 3){
-    seterr(true)
-    seterrmsg('pin must not be more than 4 digits')
-  }
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const newpin =   parseInt(pin)
+  
+ let email = localStorage.getItem('email')
+ const emailID = JSON.parse(email)
 
-  else{seterr(false)}
-}
+ let query = `*[email == "${emailID}"]{pin}`
+  const { data: user } = useQuery(['pin'], () => client.fetch(query))
+  ;
+ let pinref = user
+  
 
-  const person = {
-    firstname: JSON.parse(firstname),
-    lastname: JSON.parse(lastname),
-    pin: Number(pin),
-    password: password,
-    phone: JSON.parse(phone),
-    email: JSON.parse(emailid),
-    service: 'investment',
-    region :'north america',
-  }
-
-  const doc = { 
-    _type: "users",
-    lastname:`${person.lastname}`,
-    password :person.password,
-    email :`${person.email}`,
-    firstname :`${person.firstname}`,
-    service :`${person.service}`,
-    region :`${person.region}`,
-    phone :`${person.phone}`,
-    demo :true,
-    witheld: 0,
-    pin : person.pin,
-    investment: 0.00,
-    earnings: [0],
-    plan:"Inactive"
-
-}
+  
 
   useEffect(() => {
     setTimeout(()=>{
@@ -72,17 +42,40 @@ const touched = ()=>{
     }, 1000)
    
   }, [copied])
+  // useEffect(() => {
+  //   setTimeout(()=>{
+  //     if(!pinref){
+  //     history('/')
+  //     }
+  //   }, 10000)
+   
+  // }, [])
 
   const handlesubmit = (e)=>{
-    
     e.preventDefault()
-    client.create(doc)
-    .then(res=>{
-      console.log(res)
-      res && history('/signup4')
-    })
+    
+ 
+    if(pinref[0].pin !== newpin){
+      seterr(true)
+      seterrmsg('Incorrect Pin')
+    }
+
+    else{
+      setenterpin(true)
+    }
+  pinref && console.log(pinref[0].pin)
+  pinref && console.log((newpin))
   }
 
+  if(!user){
+    return(
+<>
+    
+    ...loading
+    </>
+    )
+    
+  }
 
   return (
     <div className=' container flex  min-h-screen mx-auto font-poppins '>
@@ -92,10 +85,10 @@ const touched = ()=>{
     
     
   <div class="mx-auto max-w-lg text-center flex flex-col">
-        <h1 class="text-2xl font-bold sm:text-3xl uppercase">Pick a 4 Digit Pin</h1>
+        <h1 class="text-2xl font-bold sm:text-3xl uppercase">Verify your Pin</h1>
 
-        <p class="mt-4 text-gray-500 text-center">
-        Your pin is used for withdrawals and Verification. You would have to verify manually, with customer service to set a new one.
+        <p class="mt-4 text-gray-500 uppercase">
+        We Need your Pin To Verify Its really You
         </p>
         <div className='self-center flex flex-col gap-4'>
             {/* {pin && <p className='self-center text-xl'>click pin to copy</p>}
@@ -118,18 +111,11 @@ const touched = ()=>{
             {/* {pin &&<i className='text-2xl text-yellow-300'><FaClipboard/></i>} */}
         </div>
     </div>
-            <div className=' my-4 py-4  flex flex-col items-center'>
-                   <input type="number" className='rounded-full text-center lett tracking-widest' minLength='4' maxLength='4' value={pin} 
-                   onChange={(e)=>{
-                    touched()
-                    setPin(e.target.value)}}
-                     required={'required'}
-                      title='Pin must be at least 4 numbers from 0-9'
-                      inputMode='numeric'  />
-                      <div className='my-4'>
-                      {err && <Alert message={errmsg} type={'error'}/>}   
-                      </div>
-                   
+            <div className=' my-4 py-4  flex flex-col items-center '>
+                   <input type="password" className='rounded-full text-center lett tracking-widest' maxLength={4} value={pin} onChange={(e)=>{setPin(e.target.value)}} /> 
+                  <div className=' my-2'>
+                       {err && <Alert message={errmsg} type={'error'}/>}
+                  </div> 
             </div>
 
     {/* <Input placeholder={'Pin'}  type={'password'} value={email} onChange={(e)=>setEmail(e.target.value)} /> */}
@@ -146,11 +132,10 @@ const touched = ()=>{
       </p> */}
 
 <button
-        //  onClick={()=>{handlesubmit()}}
         type="submit"
         class="ml-3 inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
       >
-        Confirm
+        Continue
       </button>
 
      
@@ -162,4 +147,4 @@ const touched = ()=>{
   )
 }
 
-export default SetPin
+export default Enterpin

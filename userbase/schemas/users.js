@@ -101,9 +101,14 @@ export default {
                 type: 'number'
               } ,
               {
-                title: 'Time',
-                name: 'time',
-                type: 'number'
+                title: 'Type',
+                name: 'type',
+                type: 'string'
+              } ,
+              {
+                title: 'Status',
+                name: 'status',
+                type: 'string'
               } ,
             ]
           }

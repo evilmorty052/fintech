@@ -57,13 +57,13 @@ const Signup2 = () => {
     {/* <Input placeholder={'Phone'} icon={<FaPhone/>} type={'tel'} required={'required'}  value={phone} onChange={(e)=>setphone(e.target.value)}/>
     {err && <Alert message={'Lastname is required'} type={'error'}/>} */}
     <div className=' w-full '>
-    <PhoneInput
+    {/* <PhoneInput
   country={'us'}
   value={phone}
-  // onChange={(e) =>setphone(e.target.value)}
+  onChange={(e) =>setphone(e.target.value)}
   containerClass={''}
   inputClass={'p-6 pr-6 '}
-/>
+/> */}
 
     </div>
    

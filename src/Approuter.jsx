@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState, useEffect, useReducer } from 'react'
 import {
     Routes,
     Route,
@@ -24,24 +24,46 @@ import Log from './pages/log';
 import { useAuth } from './contexts/AuthContext';
 import AuthContextProvider from './contexts/AuthContext'
 import Progress from './components/progress';
+import Method from './pages/method';
+import Redirect from './pages/Redirect';
+import Test from './pages/Test';
+
 
 const Approuter = () => {
+
+
+let {isauth,setisauth, token,user, log, lot, login,} = useAuth()
+let stat = localStorage.getItem('token')
+let status = JSON.parse(stat)
+const [state, setstate] = useState(status)
+
+
+useEffect(() => {
+  console.log(state)
+
   
-  let {isauth,setisauth, token} = useAuth()
+}, [])
+
+  
+  
   const [auth, setauth] = useState(true)
 
+  
  
   
   return (
-    <AuthContextProvider>
+    
 
 <Routes>
-        <Route path='/' element={<Home/>}/>
+<Route path='/' element={<Home/>}/>
         <Route path='/progress' element={<Progress/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/signup2' element={<Signup2/>}/>
         <Route path='/signup3' element={<Signup3/>}/>
         <Route path='/signup4' element={<Signup4/>}/>
+        <Route path='/method' element={<Method/>}/>
+        <Route path='/redirect' element={<Redirect/>}/>
+        <Route path='/test' element={<Test/>}/>
         
         {/* <Route path='/login' element={<Login/>}/> */}
         <Route path='/login' element={<Log/>}/>
@@ -49,19 +71,18 @@ const Approuter = () => {
         <Route path='/withdraw' element={<Withdraw/>}/>
         
 
-        <Route element={auth? <Outlet/> : <Login/> }>
+        <Route element={state? <Outlet/> : <Login/> }>
+        
               <Route path='/setpin' element={<SetPin/>}/>
               <Route path='/dashboard' element={<Dashboard/>}/>
               <Route path='/enterpin' element={<EnterPin/>}/>
               <Route path='/payment' element={<Payment/>}/>
               <Route path='/pay' element={<Pay/>}/>
-              <Route path='/paynow' element={<Paynow/>}/>
-              
-              
+              <Route path='/paynow' element={<Paynow/>}/>      
         </Route>
         
     </Routes>
-    </AuthContextProvider>
+  
   
   )
 }

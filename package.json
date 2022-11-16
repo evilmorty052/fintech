@@ -24,14 +24,16 @@
     "antd": "^4.24.1",
     "clipboard": "^2.0.11",
     "firebase": "^9.13.0",
-    "framer-motion": "^7.6.5",
+    "formik": "^2.2.9",
+    "framer-motion": "^7.6.7",
     "mojoauth-web-sdk": "^1.1.14",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.6.0",
     "react-phone-input-2": "^2.15.1",
     "react-router-dom": "^6.4.3",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/react": "^18.0.15",

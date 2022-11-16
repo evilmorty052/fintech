@@ -7,17 +7,19 @@ import { Alert, Spin } from 'antd';
 // import {LoadingOutlined} from 'antd'
 import ProgressBar from '../components/progressbar'
 import Progress from '../components/progress'
+import  Enterpin from '../pages/Enterpin2'
 
 
 const pay2 = ({name , handleSubmit, amount ,loader, text , act, routing,}) => {
 const [Loading, setLoading] = useState(false)
-const [accountnum, setaccountnum] = useState(0)
-const [routingnum, setroutingnum] = useState(0)
+const [accountnum, setaccountnum] = useState('')
+const [routingnum, setroutingnum] = useState('')
 const [bank, setbank] = useState('')
 const [fullname, setfullname] = useState('')
 const [go, setgo] = useState(false)
 const [err, seterr] = useState(false)
 const [errmsg, seterrmsg] = useState('')
+const [enterpin, setenterpin] = useState(false)
 
     const navigate = useNavigate()
 
@@ -34,13 +36,13 @@ const [errmsg, seterrmsg] = useState('')
     
     const Submit = () =>{
         setLoading(true)
-        if(accountnum == 0 || routingnum == 0 || fullname == ''){
+        if(!accountnum  || !routingnum || !fullname){
           seterr(true)
           seterrmsg('please fill out all fields')
           setLoading(false)
         }
 
-        else{setgo(true)}
+        else{setenterpin(true)}
         // setTimeout(()=>{
             
         //     navigate('/paynow')
@@ -50,6 +52,13 @@ const [errmsg, seterrmsg] = useState('')
         return(
             <>
            <Progress amount={amount}/>
+            </>
+        )
+    }
+    if(enterpin){
+        return(
+            <>
+           <Enterpin setenterpin={setgo}/>
             </>
         )
     }
@@ -74,7 +83,7 @@ const [errmsg, seterrmsg] = useState('')
               </li>
               <li>
               <label class="mt-1 text-sm text-gray-500 font-bold uppercase">total:</label>
-            <p class="text-xl font-medium tracking-tight">{!loader? '$ 2000'  : `${'$ '}${amount}`  }</p>
+            <p class="text-xl font-medium tracking-tight">{`${'$ '}${amount}`  }</p>
               </li>
             </ul>
         
@@ -85,7 +94,7 @@ const [errmsg, seterrmsg] = useState('')
           <div class="">
            
             
-            <p class="mt-1 text-sm text-gray-500 font-bold">{!loader? 'Activation Fee' : text }</p>
+            <p class="mt-1 text-sm text-gray-500 font-bold">{ text }</p>
           </div>
         </div>
       </div>
