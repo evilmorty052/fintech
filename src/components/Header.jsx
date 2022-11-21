@@ -6,24 +6,30 @@ import Userprofile from './Userprofile'
 
 const Header = ({name,to,func,icon, username, task}) => {
   return (
-    <div className='w-full bg-blk mb-4 py-2 px-4 uppercase font-poppins '>
-          <div className='flex max-w-6xl mx-auto'>
-            <div className='flex justify-between items-center w-full'>
+    <div className='w-full bg-blk mb-4 py-2 px-4 uppercase font-poppins relative '>
+          <div className='flex max-w-5xl mx-auto'>
+            <div className='flex justify-between w-full'>
               <div className=' flex items-center space-x-3'>
               <div className='w-10 h-10 bg-white rounded-full flex items-center justify-center'>
                <span className='text-gradient uppercase text-xl font-black'>{username}</span> 
                </div>
                <div className='flex items-center gap-x-4'>
                <Notification/>
-               <Userprofile/>
+               <div>
+                <Link to={'/profile'}>
+                <Userprofile/>
+                </Link>
+              
+               </div>
+              
                </div>
               
                 {/* <p className='text-lg text-white font-poppins font-bold'>{name? `${name}`:''}</p> */}
               </div>
-              <div className='flex items-center gap-1 sm:gap-2'>
-                
+              <div className='flex items-center gap-x-1 sm:gap-x-2 justify-center'>
+             
               <Link to={to}>
-            <p className='text-base text-white font-poppins flex items-center font-bold ' onClick={task}>{func} <i className=' ml-2 text-blue-400'>{icon}</i></p>
+            <span className='text-base text-white font-poppins flex items-center font-bold ' onClick={task}>{func} <i className=' ml-2 text-blue-400'>{icon}</i></span>
             </Link>
               </div>
            

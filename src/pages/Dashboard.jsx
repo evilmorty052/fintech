@@ -1,4 +1,5 @@
 import React from 'react'
+import { Route, Routes, Link } from 'react-router-dom';
 import Header from '../components/Header'
 import FooterMenu from '../components/FooterMenu';
 import Accountcard from '../components/Accountcard'
@@ -15,11 +16,15 @@ import Witheld from '../components/Witheld';
 import Method from './method';
 import Smallcard from '../components/smallcard';
 import { Button, notification } from 'antd'
-import { AlertTwoTone } from '@ant-design/icons';
+import { AlertTwoTone, PlusCircleFilled } from '@ant-design/icons';
 import Greeting from '../components/greeting';
+import Loader from '../components/Loader';
+import Sidebar from '../components/Sidebar';
+import Stepper from '../components/Stepper';
+
 
 const Dashboard = (email, password) => {
-  
+  const mobile = window.innerWidth < 780
  
   email = localStorage.getItem('email')
   const emailID = JSON.parse(email)
@@ -65,6 +70,9 @@ const Dashboard = (email, password) => {
     });
   };
 
+
+  
+
   
 
   useEffect(() => {
@@ -81,12 +89,14 @@ const Dashboard = (email, password) => {
     
   },[])
   
+  console.log(user && user[0].accounts)
+
 
   if(!user){
     return(
       <>
       <div>
-        loading...
+        <Loader/>
       </div>
       </>
     )
@@ -103,30 +113,72 @@ const Dashboard = (email, password) => {
   }
 
   return (
-    <div className='flex min-h-screen flex-col  relative pb-10 bg-plat font-poppins'>
+    // <div className='flex min-h-screen flex-col  relative pb-10 bg-plat font-poppins'>
+    <div className=' min-h-screen relative bg-plat font-poppins grid grid-cols-1  pb-10'>
          
 
      <div>
-     <Modal closeModal={()=>{setisclicked(false)}} openModal={openModal} isOpen={isclicked? true : false} />
+     <Modal closeModal={()=>{setisclicked(false)}} openModal={openModal} isOpen={isclicked? true : false}  />
       </div> 
-            <Header name={user[0].firstname} icon={<FaPlusCircle/>} func={'add money'} username={`${name}${lname} ` } task={()=>{setclicked(true)}} />
+            <Header name={user[0].firstname} icon={<FaPlusCircle/>} func={'Add account'} username={`${name}${lname} ` } task={()=>{setclicked(true)}} to={'/openaccount'}/>
             {/* <Inactive/> */}
-            <div className='container mx-auto px-4 text-center'>
+            <div className='container mx-auto px-4 text-center max-w-xl'>
             <Greeting/>
             </div>
         <div  className='flex flex-col w-full space-y-5  items-center py-3 mb-5'>
-
-           
-           
-            <div className='px-1'>
+           <div className='self-start px-2 flex flex-col'>
+           <h1 className='text-2xl font-bold text-blk'>ACCOUNTS</h1>
+           {/* <Page/> */}
+           </div>
+         
+           <div className='hidden lg:flex gap-x-6 '>
+           <div className='px-1 lg:self-start'>
             <Accountcard earnings={user[0].investment} show text={'ACCOUNT BALANCE'}/>
+            </div>
+
+            <div className='px-1 lg:self-start'>
+            <Accountcard earnings={user[0].investment} show text={'ACCOUNT BALANCE'}/>
+            </div>
+           </div>
+           <div className='sm:flex space-y-2 px-3 lg:hidden sm:flex-col sm:items-center w-full  '>
+            {/* <Accountcard earnings={user[0].investment} show text={'CHECKING ACCOUNT(0883..)'}/>
+            <Accountcard earnings={user[0].earnings} show text={'SAVINGS ACCOUNT (3433..)'}/> */}
+
+            {
+              user[0].accounts.map((accounts)=>{
+                return(
+                  <Accountcard earnings={user && accounts.balance} show text={`${accounts.type}${' account '}(${accounts.number.slice(0,4)}...)`} key={accounts.number} type={accounts.type}/>
+                )
+                
+              })
+            }
             </div>
             
             {user[0].witheld && 
             <div className='px-1'>
             <Witheld earnings={user[0].witheld} text={'WITHELD BALANCE'} />
             </div>}
-            <div className='container space-y-3 sm:space-y-0 flex flex-col sm:flex-row mx-auto sm:justify-evenly px-5 w-full '>
+            {/* <div>
+              <Link to={'/routing'}>
+              <button
+              className='flex items-center space-x-2 bg-blue-400 px-4 py-2 rounded-3xl'  >
+                   <span className='font-medium'>ADD ACCOUNT</span>
+                   <span><FaPlusCircle/></span>
+              </button>
+              </Link>
+             
+            </div> */}
+            <div className='hidden lg:flex container mx-auto w-full justify-center gap-x-3   '>
+              <Smallcard amount={'$ 4000'} recipe={'Crypto Recipe'}/>
+              <Smallcard amount={'$ 14000'} recipe={'Stocks Recipe'}/>
+              <Smallcard amount={'$ 14000'} recipe={'Stocks Recipe'}/>
+              <Smallcard amount={'$ 14000'} recipe={'Stocks Recipe'}/>
+              
+            </div>
+            <div className='self-start px-2'>
+           <h1 className='text-2xl font-bold text-blk'>RECIPES</h1>
+           </div>
+            <div className='lg:hidden container space-y-3 sm:space-y-0 flex flex-col sm:flex-row mx-auto sm:justify-evenly px-5 w-full  '>
               <Smallcard amount={'$ 4000'} recipe={'Crypto Recipe'}/>
               <Smallcard amount={'$ 14000'} recipe={'Stocks Recipe'}/>
               
@@ -144,8 +196,8 @@ const Dashboard = (email, password) => {
             
         </div>
         
-    <FooterMenu/>
-    
+        <FooterMenu/>
+   
     </div>
   )
 }

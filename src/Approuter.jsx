@@ -27,6 +27,9 @@ import Progress from './components/progress';
 import Method from './pages/method';
 import Redirect from './pages/Redirect';
 import Test from './pages/Test';
+import Profile from './pages/Profile'
+import OpenAccount from './components/OpenAccount'
+
 
 
 const Approuter = () => {
@@ -63,7 +66,12 @@ useEffect(() => {
         <Route path='/signup4' element={<Signup4/>}/>
         <Route path='/method' element={<Method/>}/>
         <Route path='/redirect' element={<Redirect/>}/>
+        <Route path='/openaccount' element={<OpenAccount/>}/>
         <Route path='/test' element={<Test/>}/>
+        <Route path='/profile' element={<Profile/>}/>
+      
+        
+       
         
         {/* <Route path='/login' element={<Login/>}/> */}
         <Route path='/login' element={<Log/>}/>

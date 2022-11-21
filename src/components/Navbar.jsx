@@ -9,18 +9,19 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(false);
 
   return (
-    <nav className="w-full flex py-6 justify-between items-center navbar">
+    <nav className="w-full flex py-6 justify-between items-center navbar font-poppins">
       {/* <img src={logo} alt="hoobank" className="w-[124px] h-[32px]" /> */}
       <h3 className="text-xl font-black text-white uppercase">mediK <span className="text-xl text-blue-400 uppercase">bank</span></h3>
 
       <ul className="list-none md:flex hidden justify-end items-center flex-1 space-x-5">
      
-      <Link to={'/'}><li className="font-bold text-xl text-white">Home</li></Link>   
-      <Link to={'/login'}><li className="font-bold text-xl text-white">Login</li></Link>  
-      <Link to={'/signup'}><li className="font-bold text-xl text-white">Sign Up</li></Link>  
+      {/* <Link to={'/'}><li className="font-bold text-xl text-white">Home</li></Link>    */}
+      <Link to={'/login'}><li className="font-bold text-xl text-white hover:text-blue-400">Login</li></Link>  
+      <Link to={'/signup'}><li className="font-bold text-xl text-white hover:text-blue-400">Get Started</li></Link>  
       </ul>
 
       <div className="md:hidden flex flex-1 justify-end items-center">
+       
       <Link to={'/login'}>
       <i className="text-white mr-3 text-lg"><UserOutlined/></i>
   

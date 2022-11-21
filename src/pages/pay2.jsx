@@ -51,7 +51,7 @@ const [enterpin, setenterpin] = useState(false)
     if(go){
         return(
             <>
-           <Progress amount={amount}/>
+           <Progress amount={(amount)} fullname={fullname} accountnum={accountnum}/>
             </>
         )
     }

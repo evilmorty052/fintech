@@ -31,7 +31,7 @@ const deets = transaction.map((transaction)=>{
   return{
     name : transaction.sendername,
     amount: transaction.amount,
-    tags: [transaction.status],
+    tags: transaction.status,
     type: transaction.type
   }
 
@@ -111,7 +111,7 @@ transaction && console.log(deets)
 
     })}
     </div> */}
-<Table columns={columns} dataSource={deets} pagination={false} />
+{user && <Table columns={columns} dataSource={deets} pagination={false} />}
    
 
    

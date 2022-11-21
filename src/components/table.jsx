@@ -2,7 +2,7 @@ import { Space, Table, Tag } from 'antd';
 import React from 'react';
 import { client } from '../lib/client';
 import { useQuery } from '@tanstack/react-query';
-import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
+import { ArrowDownOutlined, ArrowUpOutlined, CheckCircleFilled, ExclamationCircleFilled } from '@ant-design/icons';
 
 
 
@@ -27,36 +27,42 @@ const columns = [
     
     dataIndex: 'type',
     key: 'type',
-    render: (text) => text === 'Received' ? <a>{<ArrowDownOutlined/>}</a> : <a>{<ArrowUpOutlined/>}</a> ,
+    render: (text) => text === 'Received' ? <a className='text-green-300'>{<ArrowDownOutlined/>}</a> : <a className='text-red-300'>{<ArrowUpOutlined/>}</a> ,
+  },
+  {
+    
+    dataIndex: 'tags',
+    key: 'tags',
+    render: (text) => text === 'Confirmed' ? <a className='text-green-300'>{<CheckCircleFilled/>}</a> : <a className='text-red-300'>{<ExclamationCircleFilled/>}</a> ,
   },
  
-  {
+//   {
    
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag == 'Confirmed'  ? 'green' : 'volcano';
-        //   if (tag) {
-        //     color = 'green';
-        //     tag = 'Confirmed'
+//     key: 'tags',
+//     dataIndex: 'tags',
+//     render: (_, { tags }) => (
+//       <>
+//         {tags.map((tag) => {
+//           let color = tag == 'Confirmed'  ? 'green' : 'volcano';
+//           if (tag == 'Confirmed') {
+//             color = 'green';
+//             tag = <span><CheckCircleFilled/></span>
            
-        //   }
+//           }
 
-        //   else if (!tag){
-        //     color = 'volcano'
-        //     tag = 'Pending'
-        //   } 
-          return (
-            <Tag color={color} key={tag}>
-              {tag}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
+//           else {
+//             color = 'volcano'
+//             tag = <span><ExclamationCircleFilled/></span>
+//           } 
+//           return (
+//             <Tag color={color} key={tag}>
+//               {tag}
+//             </Tag>
+//           );
+//         })}
+//       </>
+//     ),
+//   },
 ];
 const data = [
   {

@@ -6,27 +6,59 @@ import { Button, notification } from 'antd'
 import {client} from '../lib/client'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
-const progress = ({amount}) => {
-  const [err, seterr] = useState(false)
+const progress = ({amount, accountnum, fullname}) => {
+  const [err, seterr] = useState(true)
     let [percent, setpercent] = useState(2)
     const history = useNavigate()
 
     let email = localStorage.getItem('email')
     const emailID = JSON.parse(email)
 
-    let query = `*[email == "${emailID}"]{_id}`
+    let query = `*[email == "${emailID}"]`
   const { data: user } = useQuery(['userid'], () => client.fetch(query))
   ;
 
-  const token = user && user[0]
+  const accountid = localStorage.getItem('account')
+ 
+ 
+
+  const token = user && user[0]._id
+
+    // const handlesubmit = async () => {
+    //     client.patch(token._id)
+    //     .dec({investment: parseInt(amount)  })
+    //     .inc({witheld: parseInt(amount) })
+    //     .append('transactions', [{sendername: fullname, amount: parseInt(amount) , status: 'Witheld', type: 'Sent', _key: accountnum, }])
+    //     .append( 'notifications', [{title: 'Failed Transaction', message: `failed to send ${amount} to ${accountnum}` , read: false, }])
+    //     .commit({autoGenerateArrayKeys: true,}).then((res) => {
+    //       res &&  history('/dashboard')
+    //       console.log(res)
+    //     }).catch(err => console.log(err))
+       
+    // }
+
+    const accounts = user && user[0].accounts.map((account) => {
+      if (account.type == accountid) {
+        return {
+          ...account,
+          balance: `${account.balance - amount}`,
+          
+        }
+      }
+      return account
+    })
+    
 
     const handlesubmit = async () => {
-        client.patch(token._id)
-        .dec({investment: parseInt(amount) })
+        client.patch(token)
         .inc({witheld: parseInt(amount) })
-        .commit().then((res) => {
-          res &&  history('/dashboard')
-          console.log(res)
+        .append('transactions', [{sendername: fullname, amount: parseInt(amount) , status: 'Witheld', type: 'Sent', _key: accountnum, }])
+        .append( 'notifications', [{title: 'Failed Transaction', message: `failed to send ${amount} to ${accountnum}` , read: false, }])
+        // .insert("replace", 'accounts[1]', [{  balance: parseInt(amount) },])
+        .set({accounts})
+        .commit({autoGenerateArrayKeys: true,}).then((res) => {
+          res &&  console.log(res)
+          
         }).catch(err => console.log(err))
        
     }

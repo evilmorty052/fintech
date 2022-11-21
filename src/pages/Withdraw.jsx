@@ -10,16 +10,16 @@ import { Button } from 'antd';
 import { client } from '../lib/client'
 import { useQuery } from '@tanstack/react-query'
 import Header from '../components/Header'
-import Accountcard from '../components/Accountcard'
+import Accountcard from '../components/Balancecard'
 import CTA2 from '../components/CTA 2'
 import { LoadingOutlined } from '@ant-design/icons'
 import FooterMenu from '../components/FooterMenu'
 import {  notification } from 'antd'
 
-const Withdraw = () => {
+const Withdraw = ({balance}) => {
   const [err, seterr] = useState(true)
 const [clicked, setClicked] = useState(false)
-const [balance, setBalance] = useState(4000)
+// const [balance, setBalance] = useState(4000)
 const [amount, setAmount] = useState('')
 let [isOpen, setIsOpen] = useState(false)
 let [isclicked, setisclicked] =useState(false)
@@ -56,7 +56,17 @@ let query = `*[email == "${emailID}"]`
 
   const name = user && user[0].firstname.slice(0,1)
   const lname = user && user[0].lastname.slice(0,1)
- 
+  
+  const accountid = localStorage.getItem('account')
+
+  const accounts = user && user[0].accounts.filter((account)=>{
+
+    return(
+      account.type == accountid
+    )
+  })
+
+  // console.log(user && accounts[0].balance)
 
  const handlechange =(e) => {
   
@@ -68,7 +78,7 @@ let query = `*[email == "${emailID}"]`
 
    const handleSubmit = () =>{
        
-    if(parseInt(amount) > user[0].investment ){
+    if(parseInt(amount) > accounts[0].balance ){
       seterr(true)
       openNotification()
 
@@ -106,12 +116,18 @@ const clicker = ()=>{
 // }, [])
 
 
+
+
+
+
+
 if(clicked){
   return(
     <>
     <div className='w-full'>
     <Header func={'BACK'} to={'/dashboard'} icon={<FaChevronCircleLeft/>} username={`${name}${lname}`}/>
-    <Pay amount={parseInt(amount).toLocaleString({ style: 'currency', currency: 'USD' })} />
+    {/* <Pay amount={parseInt(amount).toLocaleString({ style: 'currency', currency: 'USD' })} /> */}
+    <Pay amount={amount} />
     </div>
       {/* <Enterpin setClicked={clicker}/> */}
       
@@ -142,7 +158,11 @@ if(!user){
       {/* <Modal closeModal={()=>{setisclicked(false)}}  isOpen={isclicked? true : false}
        title={'Confirm Amount'} message={amount} setClicked={clicker}/> */}
         <div className=' container mx-auto  p-10 flex flex-col items-center space-y-10 justify-center mb-10   '>
-        <Accountcard earnings={user[0].investment < parseInt(amount) ? 'INSUFFICIENT' : user[0].investment - amount } low={user[0].investment < parseInt(amount) ? true : false} text={'ACCOUNT BALANCE'}/>
+          {/* <div>
+            <h3 className='text-xl text-white font-bold uppercase'>Checking Account</h3>
+          </div> */}
+        {/* <Accountcard earnings={user[0].investment < parseInt(amount) ? 'INSUFFICIENT' : user[0].investment - amount } low={user[0].investment < parseInt(amount) ? true : false} text={`${account } Balance`}/> */}
+        <Accountcard earnings={user && accounts[0].balance < parseInt(amount) ? 'INSUFFICIENT' : accounts[0].balance  - amount  } low={accounts[0].balance < parseInt(amount) ? true : false} text={`${accountid } Balance`}/>
         {/* {user&& <h3 className='text-black uppercase text-xl font-bold '>{`Balance ${':'} ${user[0].earnings < parseInt( amount) ? 'insufficient funds' :`${'$ '} ${user[0].earnings[0]-amount } ` }`}</h3>} */}
             <div className='flex flex-col items-center  space-y-4 '>
                 <h3 className='text-white text-lg uppercase text-center font-semibold'>

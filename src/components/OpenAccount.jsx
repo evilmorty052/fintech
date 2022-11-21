@@ -1,30 +1,108 @@
 
 import { useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
-import { FaBitcoin } from 'react-icons/fa'
+import { FaBitcoin, FaChevronCircleLeft } from 'react-icons/fa'
+import { ArrowLeftOutlined, UserAddOutlined } from '@ant-design/icons'
+import { Button, Popconfirm } from 'antd'
+import Test from '../pages/Test'
+import Header from './Header'
+import Confirm from './Confirm'
+import Creation from './Creation'
+
+
+
+
+
+
 
 const plans = [
   {
-    name: 'Bitcoin',
-    icon: <FaBitcoin/>,
-    style: 'text-2xl text-yellow-300 mr-2'
+    name: 'Checking',
+    // icon: <UserAddOutlined/>,
+    style: 'text-2xl text-yellow-300 mr-2  uppercase'
     
   },
   {
-    name: 'Paypal',
- 
+    name: 'Savings',
+    // icon: <UserAddOutlined/>,
+    style: 'text-2xl text-yellow-300 mr-2',
   },
   {
-    name: 'Card Payment',
+    name: 'Joint',
+    // icon:
+    // <UserAddOutlined/>,
+    style: 'text-2xl text-yellow-300 mr-2',
  
   },
 ]
 
 export default function Method() {
+    const [open, setOpen] = useState(false);
+    const [confirmLoading, setConfirmLoading] = useState(false);
   const [selected, setSelected] = useState(plans[0])
+  const [confirmed, setconfirmed] = useState('')
+  const [creating, setcreating] = useState(false)
+
+console.log(selected)
+
+  const showPopconfirm = () => {
+    setconfirmed(selected)
+    setOpen(true);
+  };
+
+const handleOk = () => {
+  setconfirmed(selected)
+  localStorage.setItem('selected',selected.name)
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setOpen(false);
+      setConfirmLoading(false)
+      ;
+      setcreating(true)
+    }, 4000);
+
+  };
+
+ const  handleCancel = () => {
+    console.log('Clicked cancel button');
+    setOpen(false);
+  };
+
+  function submit() {
+    setconfirmed(selected)
+  }
+
+//   switch (confirmed) {
+//     case confirmed == 'Savings':
+//         return(
+//             <Test/>
+//         ) 
+        
+//         break;
+  
+//     default:
+//         break;
+//   }
+
+
+
+if(creating){
+    return(
+        <Creation/>
+    )
+}
+
 
   return (
     <>
+    <div className='flex flex-col gap-y-8 font-poppins bg-plat h-screen'>
+    <Header func={'Back'} icon={<FaChevronCircleLeft/>}/>
+    <div className=' container mx-auto  justify-center flex flex-col p-4'>
+        <h3 className='text-center text-2xl font-poppins uppercase font-medium'>
+            Pick An account Type
+        </h3>
+        <p className='text-center'>Checkings And Savings Account Will be Opened Automatically, Using the information we have on file.</p>
+     </div>
     
     <div className="w-full px-4 py-16">
       <div className="mx-auto w-full max-w-md">
@@ -58,7 +136,7 @@ export default function Method() {
                               checked ? 'text-white' : 'text-gray-900'
                             }`}
                           >
-                           {<span className={plan.style}>{plan.icon}</span>} {plan.name}
+                           {<span className={plan.style}>{plan.icon}</span>} <span className='uppercase'>{plan.name}</span>
                           </RadioGroup.Label>
                           <RadioGroup.Description
                             as="span"
@@ -88,6 +166,34 @@ export default function Method() {
         </RadioGroup>
       </div>
     </div>
+    <div className='container mx-auto flex justify-center '>
+        <div className='w-full max-w-xs'>
+        <Popconfirm
+          title={confirmed == plans[0] ? 'Open Checking Account ?' : 'Open Saving Account ?'}
+          open={open}
+          onConfirm={handleOk}
+          okButtonProps={{
+            loading: confirmLoading,
+          }}
+          onCancel={handleCancel}>
+        <Button
+          type='primary'
+           size='large'
+            block
+            shape='round'
+            // onClick={()=>{submit()}}
+            onClick={showPopconfirm}
+            >
+            Confirm
+         </Button>
+
+        </Popconfirm>
+       
+        </div>
+    {/* <Confirm handleOk={handleOk} handleCancel={handleCancel}/> */}
+    </div>
+    </div>
+     
     </>
   )
 }

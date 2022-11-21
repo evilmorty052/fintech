@@ -115,6 +115,89 @@ export default {
         ]
       },
       { 
+        name: 'notifications',
+        title: 'Notifications',
+        type: 'array',
+        of: [
+          {
+            title: 'notification',
+            type: 'object',
+            fields: [
+              {
+                title: 'Title',
+                name: 'title',
+                type: 'string'
+              } ,
+              {
+                title: 'Message',
+                name: 'message',
+                type: 'string'
+              } ,
+              {
+                title: 'Read',
+                name: 'read',
+                type: 'boolean'
+              } ,
+              {
+                title: 'Created',
+                name: 'created',
+                type: 'datetime',
+                initialValue: (new Date()).toISOString()
+              } ,
+              { 
+                name: 'slug',
+                title: 'Slug',
+                type: 'slug',
+                options: {
+                  source: 'title',
+                  maxLength: 90,
+                }
+              },
+              
+            ]
+          }
+        ]
+      },
+      { 
+        name: 'accounts',
+        title: 'Accounts',
+        type: 'array',
+        of: [
+          {
+            title: 'account',
+            type: 'object',
+            fields: [
+              {
+                title: 'Type',
+                name: 'type',
+                type: 'string'
+              } ,
+              {
+                title: 'Balance',
+                name: 'balance',
+                type: 'string'
+              } ,
+              {
+                title: 'Number',
+                name: 'number',
+                type: 'string'
+              } ,
+              
+              { 
+                name: 'slug',
+                title: 'Slug',
+                type: 'slug',
+                options: {
+                  source: 'number',
+                  maxLength: 90,
+                }
+              },
+              
+            ]
+          }
+        ]
+      },
+      { 
         name: 'witheld',
         title: 'Witheld',
         type: 'number',
